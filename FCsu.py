@@ -302,7 +302,7 @@ def run():
         ,[custDockToggler, ['Selection view', 'S']]
         ,[custDockToggler, ['Property view', 'P']]
         ,[custDockToggler, ['Tree view', 'T']]
-        ,[custCmdRunner, ['D', ['Std_ExportGraphviz',0]]]
+        ,[custCmdRunner, ['D', ['Std_DependencyGraph',0]]]
     ]
 
     for wid in Gui.getMainWindow().findChildren(QtGui.QWidget, "fcsu"):
