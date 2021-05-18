@@ -290,33 +290,21 @@ def getFCInfo():
 
 def run():
 
-## Set status bar helpers
-
-    custBar = [
-        [visibilityTool, []]
-#        ,[custParamToggler, ['E', 'User parameter:BaseApp/Preferences/View', 'EnableSelection']]
-#        ,[custParamToggler, ['E', 'User parameter:BaseApp/Preferences/View', 'EnableSelection', lambda:Gui.runCommand('Std_ExportGraphviz',0)]]
-        ,[custDockToggler, ['Report view','R', Gui.getMainWindow().findChild(QtGui.QTextEdit, 'Report view').clear]]
-        ,[custDockToggler, ['Python console', 'Y', Gui.getMainWindow().findChild(QtGui.QPlainTextEdit, 'Python console').onClearConsole]]
-        ,[custDockToggler, ['Combo View', 'C', getFCInfo]]
-        ,[custDockToggler, ['Selection view', 'S']]
-        ,[custDockToggler, ['Property view', 'P']]
-        ,[custDockToggler, ['Tree view', 'T']]
-        ,[custCmdRunner, ['D', ['Std_DependencyGraph',0]]]
-    ]
+    import defaultcfg as cfg
 
     for wid in Gui.getMainWindow().findChildren(QtGui.QWidget, "fcsu"):
         wid.deleteLater()
     
-    ctb = statusBarWid(custBar)
-    ctb.setObjectName("fcsu")
-    Gui.getMainWindow().statusBar().addPermanentWidget(ctb)
-    Gui.getMainWindow().statusBar().setVisible(True)
-
-## Set Dock widgets font sizers
-
-    for dwid in Gui.getMainWindow().findChildren(QtGui.QDockWidget):
-        DockWFontSizer(dwid.objectName())
+    if cfg.custBarEnabled:
+        custBar = eval(cfg.custBar)
+        ctb = statusBarWid(custBar)
+        ctb.setObjectName("fcsu")
+        Gui.getMainWindow().statusBar().addPermanentWidget(ctb)
+        Gui.getMainWindow().statusBar().setVisible(True)
+        
+    if cfg.fontSizerEnabled:
+        for dwid in Gui.getMainWindow().findChildren(QtGui.QDockWidget):
+            DockWFontSizer(dwid.objectName())
 
 if __name__ == '__main__':
     run()
