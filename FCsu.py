@@ -273,21 +273,21 @@ class DockWFontSizer(QtCore.QObject):
             self.timer.stop()
 
 class AboutInfo(QtCore.QObject):
-  def eventFilter(self, obj, ev):
-    if obj.metaObject().className() == "Gui::Dialog::AboutDialog":
-      if ev.type() == ev.ChildPolished:
-        if hasattr(obj, 'on_copyButton_clicked'):
-          obj.on_copyButton_clicked()
-          QtGui.QApplication.instance().postEvent(obj, QtGui.QCloseEvent())
-    return False
-
+    def eventFilter(self, obj, ev):
+        if obj.metaObject().className() == "Gui::Dialog::AboutDialog":
+            if ev.type() == ev.ChildPolished:
+                if hasattr(obj, 'on_copyButton_clicked'):
+                    QtGui.QApplication.instance().removeEventFilter(self)
+                    obj.on_copyButton_clicked()
+                    QtCore.QMetaObject.invokeMethod(obj, 'reject', QtCore.Qt.QueuedConnection)
+                    return False
+                
 def getFCInfo():
     ai=AboutInfo()
     QtGui.QApplication.instance().installEventFilter(ai)
     Gui.runCommand("Std_About")
-    QtGui.QApplication.instance().removeEventFilter(ai)
     del ai
-
+                    
 def run():
 
     import defaultcfg as cfg
