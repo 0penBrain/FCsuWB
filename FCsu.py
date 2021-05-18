@@ -121,7 +121,7 @@ class visibilityTool(custToolButton):
     def showSelected():
         if App.ActiveDocument:
             for obj in App.ActiveDocument.Objects:
-                if (str(obj) in ['<Part::PartFeature>','<body object>','<Part object>','<App::Link object>']) or (str(obj)[:13]=="<PartDesign::"):
+                if (str(obj) in ['<Part::PartFeature>','<body object>','<Part object>','<App::Link object>']) or (str(obj)[:13]=='<PartDesign::'):
                     obj.ViewObject.Visibility = False
             objs = Gui.Selection.getSelection()
             for obj in objs:
@@ -164,7 +164,7 @@ class visibilityTool(custToolButton):
             visibilityTool.showSelected()
             return True
         elif event.buttons() == QtCore.Qt.MidButton:
-            Gui.SendMsgToActiveView("ViewFit")
+            Gui.SendMsgToActiveView('ViewFit')
             return True
         elif event.buttons() == QtCore.Qt.RightButton:
             visibilityTool.allVisible()
@@ -243,7 +243,7 @@ class DockWFontSizer(QtCore.QObject):
             self.timer.setInterval(2500)
             self.timer.timeout.connect(self.titleBarTO)
             self.dWid.installEventFilter(self)
-            setattr(self.dWid, "fontSizer", self)
+            setattr(self.dWid, 'fontSizer', self)
 
     @staticmethod
     def changeFSRec(wid, fs):
@@ -274,7 +274,7 @@ class DockWFontSizer(QtCore.QObject):
 
 class AboutInfo(QtCore.QObject):
     def eventFilter(self, obj, ev):
-        if obj.metaObject().className() == "Gui::Dialog::AboutDialog":
+        if obj.metaObject().className() == 'Gui::Dialog::AboutDialog':
             if ev.type() == ev.ChildPolished:
                 if hasattr(obj, 'on_copyButton_clicked'):
                     QtGui.QApplication.instance().removeEventFilter(self)
@@ -285,7 +285,7 @@ class AboutInfo(QtCore.QObject):
 def getFCInfo():
     ai=AboutInfo()
     QtGui.QApplication.instance().installEventFilter(ai)
-    Gui.runCommand("Std_About")
+    Gui.runCommand('Std_About')
     del ai
                     
 def run():
@@ -294,15 +294,15 @@ def run():
     try:
         import usercfg as cfg
     except ModuleNotFoundError:
-        App.Console.PrintLog('No user configuration, using default\n')
+        App.Console.PrintLog("No user configuration, using default\n")
 
-    for wid in Gui.getMainWindow().findChildren(QtGui.QWidget, "fcsu"):
+    for wid in Gui.getMainWindow().findChildren(QtGui.QWidget, 'fcsu'):
         wid.deleteLater()
     
     if cfg.custBarEnabled:
         custBar = eval(cfg.custBar)
         ctb = statusBarWid(custBar)
-        ctb.setObjectName("fcsu")
+        ctb.setObjectName('fcsu')
         Gui.getMainWindow().statusBar().addPermanentWidget(ctb)
         Gui.getMainWindow().statusBar().setVisible(True)
         
