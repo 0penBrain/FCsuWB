@@ -291,6 +291,10 @@ def getFCInfo():
 def run():
 
     import defaultcfg as cfg
+    try:
+        import usercfg as cfg
+    except ModuleNotFoundError:
+        App.Console.PrintLog('No user configuration, using default\n')
 
     for wid in Gui.getMainWindow().findChildren(QtGui.QWidget, "fcsu"):
         wid.deleteLater()

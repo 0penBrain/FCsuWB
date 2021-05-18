@@ -5,7 +5,7 @@ def run_FCsu(name):
     if name != "NoneWorkbench": #Dock widgets aren't created in None WB
         # run this function only once
         Gui.getMainWindow().workbenchActivated.disconnect(run_FCsu)
-        App.Console.PrintMessage("FC_SU macro is enabled")
+        App.Console.PrintMessage("FC_SU macro is enabled\n")
         import FCsu
         FCsu.run()
 
