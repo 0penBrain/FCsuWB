@@ -5,16 +5,16 @@ cfg = {}
 cfg['custBarEnabled'] = True
 
 cfg['custBar'] = """[
-    [visibilityTool, []]
-#    ,[custParamToggler, ['E', 'User parameter:BaseApp/Preferences/View', 'EnableSelection']]
-#    ,[custParamToggler, ['E', 'User parameter:BaseApp/Preferences/View', 'EnableSelection', lambda:Gui.runCommand('Std_ExportGraphviz',0)]]
-    ,[custDockToggler, ['Report view','R', Gui.getMainWindow().findChild(QtGui.QTextEdit, 'Report view').clear]]
-    ,[custDockToggler, ['Python console', 'Y', Gui.getMainWindow().findChild(QtGui.QPlainTextEdit, 'Python console').onClearConsole]]
-    ,[custDockToggler, ['Combo View', 'C', fcinfo.getFCInfo]]
-    ,[custDockToggler, ['Selection view', 'S']]
-    ,[custDockToggler, ['Property view', 'P']]
-    ,[custDockToggler, ['Tree view', 'T']]
-    ,[custCmdRunner, ['D', ['Std_DependencyGraph',0]]]
+    [sbwidget.visibilityTool, []]
+#    ,[sbwidget.custParamToggler, ['E', 'User parameter:BaseApp/Preferences/View', 'EnableSelection']]
+#    ,[sbwidget.custParamToggler, ['E', 'User parameter:BaseApp/Preferences/View', 'EnableSelection', lambda:Gui.runCommand('Std_ExportGraphviz',0)]]
+    ,[sbwidget.custDockToggler, ['Report view','R', Gui.getMainWindow().findChild(QtGui.QTextEdit, 'Report view').clear]]
+    ,[sbwidget.custDockToggler, ['Python console', 'Y', Gui.getMainWindow().findChild(QtGui.QPlainTextEdit, 'Python console').onClearConsole]]
+    ,[sbwidget.custDockToggler, ['Combo View', 'C', fcinfo.getFCInfo]]
+    ,[sbwidget.custDockToggler, ['Selection view', 'S']]
+    ,[sbwidget.custDockToggler, ['Property view', 'P']]
+    ,[sbwidget.custDockToggler, ['Tree view', 'T']]
+    ,[sbwidget.custCmdRunner, ['D', ['Std_DependencyGraph',0]]]
 ]"""
 
 ## Set Dock widgets font sizers
