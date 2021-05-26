@@ -15,25 +15,12 @@ class custDockToggler(basicwidget.ToolButton):
         else:
             raise ValueError('Widget not found')
 
-class custFuncRunner(basicwidget.ToolButton):
-
-    def __init__(self, text, func, funcArgs = [], midButFunc = None, rightButFunc = None, parent = None):
-        super(custFuncRunner, self).__init__(text, midButFunc, rightButFunc, parent)
-        self.func = func
-        self.funcArgs = funcArgs
-        act = QtGui.QAction(text)
-        act.triggered.connect(self.runFunc)
-        self.setDefaultAction(act)
-
-    def runFunc(self):
-        self.func(*self.funcArgs)
-
-class custCmdRunner(custFuncRunner):
+class custCmdRunner(basicwidget.FuncRunner):
 
     def __init__(self, text, cmdArgs, midButFunc = None, rightButFunc = None, parent = None):
         super(custCmdRunner, self).__init__(text, Gui.runCommand, cmdArgs, midButFunc, rightButFunc, parent)
 
-class custParamToggler(custFuncRunner):
+class custParamToggler(basicwidget.FuncRunner):
 
     def __init__(self, text, group, param, midButFunc = None, rightButFunc = None, parent = None):
         super(custParamToggler, self).__init__(text, group, param, midButFunc, rightButFunc, parent)
@@ -93,23 +80,6 @@ class visibilityTool(basicwidget.ToolButton):
             for obj in objs:
                 obj.ViewObject.Visibility = True
                 visibilityTool.showParent(obj)
-
-#    @staticmethod
-#    def allVisible():
-#        if App.ActiveDocument:
-#            for obj in App.ActiveDocument.Objects:
-#                if len(obj.InList) == 0           : 
-#                    visible = Truebasicwidget
-#                else:
-#                    visible = False
-#                for parent in obj.InList:
-#                    if str(parent) == '<Part::PartFeature>':
-#                        visible = False
-#                        break
-#                    if str(parent) == '<Part object>':
-#                        visible = True
-#                if (str(obj) in ['<Part::PartFeature>','<body object>','<Part object>','<App::Link object>']):
-#                    obj.ViewObject.Visibility = visible
 
     @staticmethod
     def allVisible():

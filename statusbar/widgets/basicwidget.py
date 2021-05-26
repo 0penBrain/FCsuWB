@@ -37,3 +37,16 @@ class ToolButton(QtGui.QToolButton):
             return True
         else:
             return super(ToolButton, self).mousePressEvent(event)
+
+class FuncRunner(ToolButton):
+
+    def __init__(self, text, func, funcArgs = [], midButFunc = None, rightButFunc = None, parent = None):
+        super(FuncRunner, self).__init__(text, midButFunc, rightButFunc, parent)
+        self.func = func
+        self.funcArgs = funcArgs
+        act = QtGui.QAction(text)
+        act.triggered.connect(self.runFunc)
+        self.setDefaultAction(act)
+
+    def runFunc(self):
+        self.func(*self.funcArgs)
