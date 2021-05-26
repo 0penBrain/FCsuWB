@@ -217,24 +217,26 @@ class statusBarWid(QtGui.QWidget):
         lay.setContentsMargins(0,0,0,0)
         self.setLayout(lay)
         
-import defaultcfg as cfg
+import defaultcfg
+config = defaultcfg.cfg
 try:
-    import usercfg as cfg
+    import usercfg
+    config.update(usercfg.cfg)
 except ModuleNotFoundError:
     App.Console.PrintLog("No user configuration, using default\n")
 
 for wid in Gui.getMainWindow().findChildren(QtGui.QWidget, 'fcsu'):
     wid.deleteLater()
 
-if cfg.custBarEnabled:
+if config['custBarEnabled']:
     from statusbar.helpers import *
-    custBar = eval(cfg.custBar)
+    custBar = eval(config['custBar'])
     ctb = statusBarWid(custBar)
     ctb.setObjectName('fcsu')
     Gui.getMainWindow().statusBar().addPermanentWidget(ctb)
     Gui.getMainWindow().statusBar().setVisible(True)
     
-if cfg.fontSizerEnabled:
+if config['fontSizerEnabled']:
     from fontsizer import *
     for dwid in Gui.getMainWindow().findChildren(QtGui.QDockWidget):
         fontsizer.DockWFontSizer(dwid.objectName())

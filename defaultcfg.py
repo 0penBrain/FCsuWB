@@ -1,8 +1,10 @@
 ## Set status bar helpers
 
-custBarEnabled = True
+cfg = {}
 
-custBar = """[
+cfg['custBarEnabled'] = True
+
+cfg['custBar'] = """[
     [visibilityTool, []]
 #    ,[custParamToggler, ['E', 'User parameter:BaseApp/Preferences/View', 'EnableSelection']]
 #    ,[custParamToggler, ['E', 'User parameter:BaseApp/Preferences/View', 'EnableSelection', lambda:Gui.runCommand('Std_ExportGraphviz',0)]]
@@ -17,4 +19,4 @@ custBar = """[
 
 ## Set Dock widgets font sizers
 
-fontSizerEnabled = False
+cfg['fontSizerEnabled'] = False
