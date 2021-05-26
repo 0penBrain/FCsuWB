@@ -7,7 +7,6 @@ def run_FCsu(name):
         Gui.getMainWindow().workbenchActivated.disconnect(run_FCsu)
         App.Console.PrintMessage("FC_SU macro is enabled\n")
         import FCsu
-        FCsu.run()
 
 # this is important because InitGui.py files are passed to the exec() function
 # and the runMacro wouldn't be visible outside. So explicitly add it to __main__

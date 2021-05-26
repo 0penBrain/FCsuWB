@@ -8,7 +8,7 @@ custBar = """[
 #    ,[custParamToggler, ['E', 'User parameter:BaseApp/Preferences/View', 'EnableSelection', lambda:Gui.runCommand('Std_ExportGraphviz',0)]]
     ,[custDockToggler, ['Report view','R', Gui.getMainWindow().findChild(QtGui.QTextEdit, 'Report view').clear]]
     ,[custDockToggler, ['Python console', 'Y', Gui.getMainWindow().findChild(QtGui.QPlainTextEdit, 'Python console').onClearConsole]]
-    ,[custDockToggler, ['Combo View', 'C', getFCInfo]]
+    ,[custDockToggler, ['Combo View', 'C', fcinfo.getFCInfo]]
     ,[custDockToggler, ['Selection view', 'S']]
     ,[custDockToggler, ['Property view', 'P']]
     ,[custDockToggler, ['Tree view', 'T']]

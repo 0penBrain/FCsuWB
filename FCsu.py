@@ -216,45 +216,25 @@ class statusBarWid(QtGui.QWidget):
                 pass
         lay.setContentsMargins(0,0,0,0)
         self.setLayout(lay)
-
-class AboutInfo(QtCore.QObject):
-    def eventFilter(self, obj, ev):
-        if obj.metaObject().className() == 'Gui::Dialog::AboutDialog':
-            if ev.type() == ev.ChildPolished:
-                if hasattr(obj, 'on_copyButton_clicked'):
-                    QtGui.QApplication.instance().removeEventFilter(self)
-                    obj.on_copyButton_clicked()
-                    QtCore.QMetaObject.invokeMethod(obj, 'reject', QtCore.Qt.QueuedConnection)
-                    return False
-                
-def getFCInfo():
-    ai=AboutInfo()
-    QtGui.QApplication.instance().installEventFilter(ai)
-    Gui.runCommand('Std_About')
-    del ai
-                    
-def run():
-
-    import defaultcfg as cfg
-    try:
-        import usercfg as cfg
-    except ModuleNotFoundError:
-        App.Console.PrintLog("No user configuration, using default\n")
-
-    for wid in Gui.getMainWindow().findChildren(QtGui.QWidget, 'fcsu'):
-        wid.deleteLater()
-    
-    if cfg.custBarEnabled:
-        custBar = eval(cfg.custBar)
-        ctb = statusBarWid(custBar)
-        ctb.setObjectName('fcsu')
-        Gui.getMainWindow().statusBar().addPermanentWidget(ctb)
-        Gui.getMainWindow().statusBar().setVisible(True)
         
-    if cfg.fontSizerEnabled:
-        from fontsizer import fontsizer
-        for dwid in Gui.getMainWindow().findChildren(QtGui.QDockWidget):
-            fontsizer.DockWFontSizer(dwid.objectName())
+import defaultcfg as cfg
+try:
+    import usercfg as cfg
+except ModuleNotFoundError:
+    App.Console.PrintLog("No user configuration, using default\n")
 
-if __name__ == '__main__':
-    run()
+for wid in Gui.getMainWindow().findChildren(QtGui.QWidget, 'fcsu'):
+    wid.deleteLater()
+
+if cfg.custBarEnabled:
+    from statusbar.helpers import *
+    custBar = eval(cfg.custBar)
+    ctb = statusBarWid(custBar)
+    ctb.setObjectName('fcsu')
+    Gui.getMainWindow().statusBar().addPermanentWidget(ctb)
+    Gui.getMainWindow().statusBar().setVisible(True)
+    
+if cfg.fontSizerEnabled:
+    from fontsizer import *
+    for dwid in Gui.getMainWindow().findChildren(QtGui.QDockWidget):
+        fontsizer.DockWFontSizer(dwid.objectName())
