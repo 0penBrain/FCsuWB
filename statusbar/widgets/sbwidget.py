@@ -6,34 +6,34 @@ from . import basicwidget
 
 ##### Status bar helper
 
-class custDockToggler(basicwidget.ToolButton):
+class DockToggler(basicwidget.ToolButton):
 
     def __init__(self, dock, text, midButFunc = None, rightButFunc = None, parent = None):
         if not not Gui.getMainWindow().findChild(QtGui.QDockWidget, dock):
-            super(custDockToggler, self).__init__(text, midButFunc, rightButFunc, parent)
+            super(DockToggler, self).__init__(text, midButFunc, rightButFunc, parent)
             self.setDefaultAction(Gui.getMainWindow().findChild(QtGui.QDockWidget, dock).toggleViewAction())
         else:
             raise ValueError('Widget not found')
 
-class custCmdRunner(basicwidget.FuncRunner):
+class CmdRunner(basicwidget.FuncRunner):
 
     def __init__(self, text, cmdArgs, midButFunc = None, rightButFunc = None, parent = None):
-        super(custCmdRunner, self).__init__(text, Gui.runCommand, cmdArgs, midButFunc, rightButFunc, parent)
+        super(CmdRunner, self).__init__(text, Gui.runCommand, cmdArgs, midButFunc, rightButFunc, parent)
 
-class custParamToggler(basicwidget.FuncRunner):
+class ParamToggler(basicwidget.FuncRunner):
 
     def __init__(self, text, group, param, midButFunc = None, rightButFunc = None, parent = None):
-        super(custParamToggler, self).__init__(text, group, param, midButFunc, rightButFunc, parent)
+        super(ParamToggler, self).__init__(text, group, param, midButFunc, rightButFunc, parent)
         self.defaultAction().setCheckable(True)
         self.defaultAction().setChecked(App.ParamGet(group).GetBool(param, True))
 
     def runFunc(self, state):
         App.ParamGet(self.func).SetBool(self.funcArgs, state)
 
-class visibilityTool(basicwidget.ToolButton):
+class VisibilityTool(basicwidget.ToolButton):
 
     def __init__(self, text='V', parent = None):
-        super(visibilityTool, self).__init__(text, parent = parent)
+        super(VisibilityTool, self).__init__(text, parent = parent)
         lay = QtGui.QVBoxLayout()
         QtGui.QLayout.setAlignment(lay, QtCore.Qt.AlignHCenter)
         self.wid = QtGui.QWidget(Gui.getMainWindow())
@@ -60,7 +60,7 @@ class visibilityTool(basicwidget.ToolButton):
     def paintEvent(self, event):
         self.wid.move(self.mapTo(self.wid.parent(),QtCore.QPoint(0,0)) - QtCore.QPoint(self.wid.width()/2-self.width()/2, self.wid.height()))
         self.wid.update()
-        return super(visibilityTool, self).paintEvent(event)
+        return super(VisibilityTool, self).paintEvent(event)
 
     @staticmethod
     def showParent(child):
@@ -68,7 +68,7 @@ class visibilityTool(basicwidget.ToolButton):
             if str(parent) in ['<body object>','<Part object>']:
                 parent.ViewObject.Visibility = True
             if str(parent) not in ['<App::Link object>']:
-                visibilityTool.showParent(parent)
+                VisibilityTool.showParent(parent)
 
     @staticmethod
     def showSelected():
@@ -79,7 +79,7 @@ class visibilityTool(basicwidget.ToolButton):
             objs = Gui.Selection.getSelection()
             for obj in objs:
                 obj.ViewObject.Visibility = True
-                visibilityTool.showParent(obj)
+                VisibilityTool.showParent(obj)
 
     @staticmethod
     def allVisible():
@@ -97,15 +97,15 @@ class visibilityTool(basicwidget.ToolButton):
 
     def mousePressEvent(self, event):
         if event.buttons() == QtCore.Qt.LeftButton:
-            visibilityTool.showSelected()
+            VisibilityTool.showSelected()
             return True
         elif event.buttons() == QtCore.Qt.MidButton:
             Gui.SendMsgToActiveView('ViewFit')
             return True
         elif event.buttons() == QtCore.Qt.RightButton:
-            visibilityTool.allVisible()
+            VisibilityTool.allVisible()
             return True
-        return super(visibilityTool, self).mousePressEvent(event)
+        return super(VisibilityTool, self).mousePressEvent(event)
 
     def wheelEvent(self, event):
         event.accept()
