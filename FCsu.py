@@ -21,7 +21,10 @@ if config['custBarEnabled']:
     ctb.setObjectName('fcsu')
     Gui.getMainWindow().statusBar().addPermanentWidget(ctb)
     Gui.getMainWindow().statusBar().setVisible(True)
-    
+
+if config['windowSplitterEnabled']:
+    from windowsplitter import winsplit
+
 if config['fontSizerEnabled']:
     from fontsizer import *
     for dwid in Gui.getMainWindow().findChildren(QtGui.QDockWidget):

@@ -17,6 +17,10 @@ cfg['custBar'] = """[
     ,[sbwidget.CmdRunner, ['D', ['Std_DependencyGraph',0]]]
 ]"""
 
+## Set SubWindow splitter
+
+cfg['windowSplitterEnabled'] = True
+
 ## Set Dock widgets font sizers
 
 cfg['fontSizerEnabled'] = False
