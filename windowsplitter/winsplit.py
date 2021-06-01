@@ -4,9 +4,13 @@ import FreeCADGui as Gui
 class WinSplitter(QtCore.QObject):
 
     class SplitWindow(QtWidgets.QMainWindow):
+        
+        closed = QtCore.Signal(object)
     
-        def __init__(self, wid, res, title):
-            super(WinSplitter.SplitWindow, self).__init__()
+        def __init__(self, wid, res, title, parent = None):
+            super(WinSplitter.SplitWindow, self).__init__(parent)
+            self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
+            self.setAttribute(QtCore.Qt.WA_WindowPropagation, True)
             self.wid = wid
             self.res = res
             self.setCentralWidget(self.wid)
@@ -15,6 +19,7 @@ class WinSplitter(QtCore.QObject):
     
         def closeEvent(self, ev):
             self.res.layout().addWidget(self.wid)
+            self.closed.emit(self)
             super(WinSplitter.SplitWindow, self).closeEvent(ev)
 
     def __new__(cls):
@@ -29,9 +34,19 @@ class WinSplitter(QtCore.QObject):
         setattr(Gui.getMainWindow(), 'winsplitter', self)
         self.splitwin = []
 
+    @QtCore.Slot(int)
     def onTBDC(self, idx):
         if idx >= 0:
             sw = Gui.getMainWindow().centralWidget().subWindowList()[idx]
-            self.splitwin.append(WinSplitter.SplitWindow(sw.widget(), sw, sw.windowTitle()))
+            ws = WinSplitter.SplitWindow(sw.widget(), sw, sw.windowTitle(), Gui.getMainWindow())
+            ws.closed.connect(self.onWinClose)
+            self.splitwin.append(ws)
+        else:
+            while self.splitwin:
+                self.splitwin[0].close()
+    
+    @QtCore.Slot(object)
+    def onWinClose(self, obj):
+        self.splitwin.remove(obj)
 
 WinSplitter()
