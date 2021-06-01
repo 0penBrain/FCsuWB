@@ -26,6 +26,6 @@ if config['windowSplitterEnabled']:
     from windowsplitter import winsplit
 
 if config['fontSizerEnabled']:
-    from fontsizer import *
+    from fontsizer import fontsizer
     for dwid in Gui.getMainWindow().findChildren(QtGui.QDockWidget):
         fontsizer.DockWFontSizer(dwid.objectName())
