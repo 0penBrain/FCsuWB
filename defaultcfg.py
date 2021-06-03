@@ -2,6 +2,8 @@
 
 cfg = {}
 
+cfg['clearNavIndictor'] = False
+
 cfg['custBarEnabled'] = True
 
 cfg['custBar'] = """[

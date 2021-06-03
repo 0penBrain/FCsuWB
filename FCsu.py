@@ -12,6 +12,9 @@ except ModuleNotFoundError:
 
 for wid in Gui.getMainWindow().findChildren(QtWidgets.QWidget, 'fcsu'):
     wid.deleteLater()
+    
+if config['clearNavIndictor']:
+    Gui.getMainWindow().statusBar().findChild(QtWidgets.QPushButton, 'NavigationIndicator').deleteLater()
 
 if config['custBarEnabled']:
     from statusbar.helpers import *
