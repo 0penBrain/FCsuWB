@@ -1,24 +1,24 @@
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 import FreeCADGui as Gui
 
 class DockWFontSizer(QtCore.QObject):
 
     def __init__(self, dockWidName):
         super(DockWFontSizer, self).__init__()
-        self.dWid = Gui.getMainWindow().findChild(QtGui.QDockWidget, dockWidName)
+        self.dWid = Gui.getMainWindow().findChild(QtWidgets.QDockWidget, dockWidName)
         if self.dWid:
-            initialPS = QtGui.QApplication.font().pointSize()
+            initialPS = QtWidgets.QApplication.font().pointSize()
             self.font = QtGui.QFont(self.dWid.font())
-            self.titleWid = QtGui.QWidget()
-            lay = QtGui.QHBoxLayout()
-            self.sliFS = QtGui.QSlider(QtCore.Qt.Horizontal)
+            self.titleWid = QtWidgets.QWidget()
+            lay = QtWidgets.QHBoxLayout()
+            self.sliFS = QtWidgets.QSlider(QtCore.Qt.Horizontal)
             self.sliFS.setSliderPosition(initialPS)
             self.sliFS.setMaximum(initialPS)
             self.sliFS.setMinimum(int(initialPS/2))
             self.sliFS.setPageStep(1)
             self.sliFS.valueChanged.connect(self.changeFS)
             self.sliFS.sliderReleased.connect(self.changeFS)
-            lay.addWidget(QtGui.QLabel("Size : "))
+            lay.addWidget(QtWidgets.QLabel("Size : "))
             lay.addWidget(self.sliFS)
             self.titleWid.setLayout(lay)
             self.timer = QtCore.QTimer(self)

@@ -1,4 +1,4 @@
-from PySide import QtGui, QtCore
+from PySide2 import QtWidgets, QtCore
 import FreeCAD as App
 import FreeCADGui as Gui
 
@@ -9,9 +9,9 @@ from . import basicwidget
 class DockToggler(basicwidget.ToolButton):
 
     def __init__(self, dock, text, midButFunc = None, rightButFunc = None, parent = None):
-        if not not Gui.getMainWindow().findChild(QtGui.QDockWidget, dock):
+        if not not Gui.getMainWindow().findChild(QtWidgets.QDockWidget, dock):
             super(DockToggler, self).__init__(text, midButFunc, rightButFunc, parent)
-            self.setDefaultAction(Gui.getMainWindow().findChild(QtGui.QDockWidget, dock).toggleViewAction())
+            self.setDefaultAction(Gui.getMainWindow().findChild(QtWidgets.QDockWidget, dock).toggleViewAction())
         else:
             raise ValueError('Widget not found')
 
@@ -34,14 +34,14 @@ class VisibilityTool(basicwidget.ToolButton):
 
     def __init__(self, text='V', parent = None):
         super(VisibilityTool, self).__init__(text, parent = parent)
-        lay = QtGui.QVBoxLayout()
-        QtGui.QLayout.setAlignment(lay, QtCore.Qt.AlignHCenter)
-        self.wid = QtGui.QWidget(Gui.getMainWindow())
+        lay = QtWidgets.QVBoxLayout()
+        QtWidgets.QLayout.setAlignment(lay, QtCore.Qt.AlignHCenter)
+        self.wid = QtWidgets.QWidget(Gui.getMainWindow())
         self.wid.hide()
         self.wid.setLayout(lay)
-        self.lab = QtGui.QLabel("100 %")
+        self.lab = QtWidgets.QLabel("100 %")
         lay.addWidget(self.lab)
-        self.sli = QtGui.QSlider(QtCore.Qt.Orientation.Vertical)
+        self.sli = QtWidgets.QSlider(QtCore.Qt.Orientation.Vertical)
         self.sli.setRange(5,100)
         self.sli.setValue(100)
         self.sli.setSingleStep(5)
@@ -140,11 +140,11 @@ class VisibilityTool(basicwidget.ToolButton):
             self.wid.hide()
             self.timer.stop()
 
-class statusBarWid(QtGui.QWidget):
+class statusBarWid(QtWidgets.QWidget):
 
     def __init__(self, buttList):
         super(statusBarWid, self).__init__()
-        lay = QtGui.QHBoxLayout()
+        lay = QtWidgets.QHBoxLayout()
         for butt in buttList:
             try:
                 lay.addWidget(butt[0](*butt[1], parent=self))

@@ -1,8 +1,8 @@
-from PySide import QtGui, QtCore
+from PySide2 import QtWidgets, QtCore
 import FreeCAD as App
 import FreeCADGui as Gui
 
-class ToolButton(QtGui.QToolButton):
+class ToolButton(QtWidgets.QToolButton):
 
     def __init__(self, text='', midButFunc = None, rightButFunc = None, parent = None):
         self.custText = text
@@ -44,7 +44,7 @@ class FuncRunner(ToolButton):
         super(FuncRunner, self).__init__(text, midButFunc, rightButFunc, parent)
         self.func = func
         self.funcArgs = funcArgs
-        act = QtGui.QAction(text)
+        act = QtWidgets.QAction(text)
         act.triggered.connect(self.runFunc)
         self.setDefaultAction(act)
 

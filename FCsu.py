@@ -1,4 +1,4 @@
-from PySide import QtGui
+from PySide2 import QtWidgets
 import FreeCAD as App
 import FreeCADGui as Gui
         
@@ -10,7 +10,7 @@ try:
 except ModuleNotFoundError:
     App.Console.PrintLog("No user configuration, using default\n")
 
-for wid in Gui.getMainWindow().findChildren(QtGui.QWidget, 'fcsu'):
+for wid in Gui.getMainWindow().findChildren(QtWidgets.QWidget, 'fcsu'):
     wid.deleteLater()
 
 if config['custBarEnabled']:
@@ -27,5 +27,5 @@ if config['windowSplitterEnabled']:
 
 if config['fontSizerEnabled']:
     from fontsizer import fontsizer
-    for dwid in Gui.getMainWindow().findChildren(QtGui.QDockWidget):
+    for dwid in Gui.getMainWindow().findChildren(QtWidgets.QDockWidget):
         fontsizer.DockWFontSizer(dwid.objectName())
