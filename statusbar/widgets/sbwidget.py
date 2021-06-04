@@ -4,8 +4,6 @@ import FreeCADGui as Gui
 
 from . import basicwidget
 
-##### Status bar helper
-
 class DockToggler(basicwidget.ToolButton):
 
     def __init__(self, dock, text, midButFunc = None, rightButFunc = None, parent = None):

@@ -29,7 +29,7 @@ class ToolButton(QtWidgets.QToolButton):
             elif self.rightButFunc:
                 self.rightButFunc()
             return True
-        elif  event.button() == QtCore.Qt.RightButton:
+        elif event.button() == QtCore.Qt.RightButton:
             if self.rightButFunc:
                 self.rightButFunc()
             elif self.midButFunc:

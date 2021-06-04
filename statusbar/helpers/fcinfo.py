@@ -1,4 +1,5 @@
 from PySide2 import QtCore, QtWidgets
+import FreeCADGui as Gui
 
 class AboutInfo(QtCore.QObject):
     def eventFilter(self, obj, ev):
@@ -9,6 +10,7 @@ class AboutInfo(QtCore.QObject):
                     obj.on_copyButton_clicked()
                     QtCore.QMetaObject.invokeMethod(obj, 'reject', QtCore.Qt.QueuedConnection)
                     return False
+        return False
                 
 def getFCInfo():
     ai=AboutInfo()
