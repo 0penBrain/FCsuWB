@@ -38,6 +38,10 @@ class WinSplitter(QtCore.QObject):
     def onTBDC(self, idx):
         if idx >= 0:
             sw = Gui.getMainWindow().centralWidget().subWindowList()[idx]
+            for ws in self.splitwin:
+                if sw == ws.res:
+                    ws.close()
+                    return
             ws = WinSplitter.SplitWindow(sw.widget(), sw, sw.windowTitle(), Gui.getMainWindow())
             ws.closed.connect(self.onWinClose)
             self.splitwin.append(ws)

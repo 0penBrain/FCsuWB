@@ -27,4 +27,4 @@ def closeAllDWButCV():
             if dw.objectName() != 'Combo View':
                 dw.hide()
 
-Gui.getMainWindow().mainWindowClosed.connect(restoreDWState) #FIXME : signal is sent after window settings are saved
+Gui.getMainWindow().mainWindowClosed.connect(restoreDWState) #FIXME : signal is sent after window settings are saved, no signal before
