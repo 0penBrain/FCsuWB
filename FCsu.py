@@ -20,7 +20,7 @@ if config['custBarEnabled']:
     from statusbar.helpers import *
     from statusbar.widgets import *
     custBar = eval(config['custBar'])
-    ctb = sbwidget.statusBarWid(custBar)
+    ctb = sbwidget.statusBarWid(custBar, Gui.getMainWindow().statusBar())
     ctb.setObjectName('fcsu')
     Gui.getMainWindow().statusBar().addPermanentWidget(ctb)
     Gui.getMainWindow().statusBar().setVisible(True)

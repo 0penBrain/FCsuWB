@@ -34,12 +34,12 @@ class VisibilityTool(basicwidget.ToolButton):
         super(VisibilityTool, self).__init__(text, parent = parent)
         lay = QtWidgets.QVBoxLayout()
         QtWidgets.QLayout.setAlignment(lay, QtCore.Qt.AlignHCenter)
-        self.wid = QtWidgets.QWidget(Gui.getMainWindow())
+        self.wid = QtWidgets.QWidget(self, QtCore.Qt.ToolTip)
         self.wid.hide()
         self.wid.setLayout(lay)
-        self.lab = QtWidgets.QLabel("100 %")
+        self.lab = QtWidgets.QLabel("100 %", self.wid)
         lay.addWidget(self.lab)
-        self.sli = QtWidgets.QSlider(QtCore.Qt.Orientation.Vertical)
+        self.sli = QtWidgets.QSlider(QtCore.Qt.Orientation.Vertical, self.wid)
         self.sli.setRange(5,100)
         self.sli.setValue(100)
         self.sli.setSingleStep(5)
@@ -56,7 +56,7 @@ class VisibilityTool(basicwidget.ToolButton):
         self.timer.timeout.connect(self.timerTO)
 
     def paintEvent(self, event):
-        self.wid.move(self.mapTo(self.wid.parent(),QtCore.QPoint(0,0)) - QtCore.QPoint(self.wid.width()/2-self.width()/2, self.wid.height()))
+        self.wid.move(self.mapToGlobal(QtCore.QPoint(0,0)) - QtCore.QPoint(self.wid.width()/2-self.width()/2, self.wid.height()))
         self.wid.update()
         return super(VisibilityTool, self).paintEvent(event)
 
@@ -140,8 +140,8 @@ class VisibilityTool(basicwidget.ToolButton):
 
 class statusBarWid(QtWidgets.QWidget):
 
-    def __init__(self, buttList):
-        super(statusBarWid, self).__init__()
+    def __init__(self, buttList, parent = None):
+        super(statusBarWid, self).__init__(parent)
         lay = QtWidgets.QHBoxLayout()
         for butt in buttList:
             try:
