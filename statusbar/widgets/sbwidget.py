@@ -69,7 +69,7 @@ class VisibilityTool(basicwidget.ToolButton):
                 VisibilityTool.showParent(parent)
 
     @staticmethod
-    def showSelected():
+    def showSelected(): #FIXME : problems to be solved with Link
         if App.ActiveDocument:
             for obj in App.ActiveDocument.Objects:
                 if (str(obj) in ['<Part::PartFeature>','<body object>','<Part object>','<App::Link object>']) or (str(obj)[:13]=='<PartDesign::'):
@@ -80,17 +80,15 @@ class VisibilityTool(basicwidget.ToolButton):
                 VisibilityTool.showParent(obj)
 
     @staticmethod
-    def allVisible():
+    def allVisible(): #FIXME : problems to be solved with Link
         if App.ActiveDocument:
             for obj in App.ActiveDocument.Objects:
                 if str(obj) in ['<Part::PartFeature>','<body object>','<Part object>','<App::Link object>','<App::LinkElement object>','<App::LinkGroup object>'] :
-                    print(obj.Name)
                     visible = True
                     for parent in obj.InList:
                         if str(parent) == '<Part::PartFeature>':
                             visible = False
                             break
-                    print(visible)
                     obj.Visibility = visible
 
     def mousePressEvent(self, event):
