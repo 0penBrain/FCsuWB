@@ -92,18 +92,25 @@ class VisibilityTool(basicwidget.ToolButton):
                     obj.Visibility = visible
 
     def mousePressEvent(self, event):
+        if not Gui.ActiveDocument or str(Gui.ActiveDocument.ActiveView) != 'View3DInventor':
+            event.ignore()
+            super(VisibilityTool, self).mousePressEvent(event)
+            return
+        event.accept()
         if event.buttons() == QtCore.Qt.LeftButton:
             VisibilityTool.showSelected()
-            return True
+            return
         elif event.buttons() == QtCore.Qt.MidButton:
             Gui.SendMsgToActiveView('ViewFit')
-            return True
+            return
         elif event.buttons() == QtCore.Qt.RightButton:
             VisibilityTool.allVisible()
-            return True
-        return super(VisibilityTool, self).mousePressEvent(event)
+            return
 
     def wheelEvent(self, event):
+        if not Gui.ActiveDocument or str(Gui.ActiveDocument.ActiveView) != 'View3DInventor':
+            event.ignore()
+            return
         event.accept()
         if self.wid.isVisible():
             self.wheelAngle += event.angleDelta().y()
@@ -117,7 +124,6 @@ class VisibilityTool(basicwidget.ToolButton):
             self.wheelAngle = 0
             self.wid.show()
             self.timer.start()
-        return True
 
     def onSliChanged(self, value=0):
         self.timer.start()
