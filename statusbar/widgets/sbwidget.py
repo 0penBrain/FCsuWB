@@ -122,6 +122,13 @@ class VisibilityTool(basicwidget.ToolButton):
                 self.sli.setValue(self.sli.value() - self.sli.singleStep())
         else:
             self.wheelAngle = 0
+            objs = Gui.Selection.getSelection()
+            if len(objs) == 0 and App.ActiveDocument:
+                objs = App.ActiveDocument.Objects
+            value = 100
+            if objs:
+                value = 95-min([obj.ViewObject.Transparency for obj in objs if hasattr(obj,'ViewObject') and hasattr(obj.ViewObject,'Transparency')])
+            self.sli.setValue(value)
             self.wid.show()
             self.timer.start()
 
@@ -133,8 +140,7 @@ class VisibilityTool(basicwidget.ToolButton):
             if len(objs) == 0 and App.ActiveDocument:
                 objs = App.ActiveDocument.Objects
             for obj in objs:
-                if hasattr(obj,'ViewObject'):
-                    if hasattr(obj.ViewObject,'Transparency'):
+                if hasattr(obj,'ViewObject') and hasattr(obj.ViewObject,'Transparency'):
                         obj.ViewObject.Transparency = 95-value
 
     def timerTO(self):
