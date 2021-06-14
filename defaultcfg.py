@@ -23,6 +23,10 @@ cfg['custBar'] = """[
 
 cfg['windowSplitterEnabled'] = True
 
+## Set SpreadSheet scaler
+
+cfg['sheetScaler'] = False
+
 ## Set Dock widgets font sizers
 
 cfg['fontSizerEnabled'] = False

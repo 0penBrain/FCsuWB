@@ -28,6 +28,9 @@ if config['custBarEnabled']:
 if config['windowSplitterEnabled']:
     from windowsplitter import winsplit
 
+if config['sheetScaler']:
+    from sheetscaler import sheetscaler
+
 if config['fontSizerEnabled']:
     from fontsizer import fontsizer
     for dwid in Gui.getMainWindow().findChildren(QtWidgets.QDockWidget):
