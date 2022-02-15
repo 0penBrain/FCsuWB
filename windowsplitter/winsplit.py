@@ -1,19 +1,28 @@
-from PySide2 import QtWidgets, QtCore
+from PySide2 import QtWidgets, QtCore, QtGui
 import FreeCADGui as Gui
 
 class WinSplitter(QtCore.QObject):
 
-    class SplitWindow(QtWidgets.QMainWindow):
+    class SplitWindow(QtWidgets.QDialog):
         
         closed = QtCore.Signal(object)
     
         def __init__(self, wid, res, title, parent = None):
-            super(WinSplitter.SplitWindow, self).__init__(parent)
+            flag = QtCore.Qt.Window
+            if QtGui.QGuiApplication.instance().keyboardModifiers() == QtCore.Qt.ShiftModifier:
+                flag = QtCore.Qt.Tool
+            super(WinSplitter.SplitWindow, self).__init__(parent, flag)
             self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
             self.setAttribute(QtCore.Qt.WA_WindowPropagation, True)
+            self.setGeometry(wid.geometry())
+            lay = QtWidgets.QVBoxLayout(self)
+            lay.setContentsMargins(0, 0, 0, 0)
+            lay.setSpacing(0)
             self.wid = wid
+            print(self.wid.sizeHint())
+            lay.addWidget(self.wid)
+            self.setLayout(lay)
             self.res = res
-            self.setCentralWidget(self.wid)
             self.setWindowTitle(title)
             self.show()
     
