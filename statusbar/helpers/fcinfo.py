@@ -9,7 +9,6 @@ class AboutInfo(QtCore.QObject):
                     QtWidgets.QApplication.instance().removeEventFilter(self)
                     obj.on_copyButton_clicked()
                     QtCore.QMetaObject.invokeMethod(obj, 'reject', QtCore.Qt.QueuedConnection)
-                    return False
         return False
                 
 def getFCInfo():

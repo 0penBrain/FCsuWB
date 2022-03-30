@@ -19,7 +19,6 @@ class WinSplitter(QtCore.QObject):
             lay.setContentsMargins(0, 0, 0, 0)
             lay.setSpacing(0)
             self.wid = wid
-            print(self.wid.sizeHint())
             lay.addWidget(self.wid)
             self.setLayout(lay)
             self.res = res
@@ -53,6 +52,7 @@ class WinSplitter(QtCore.QObject):
                     return
             ws = WinSplitter.SplitWindow(sw.widget(), sw, sw.windowTitle(), Gui.getMainWindow())
             ws.closed.connect(self.onWinClose)
+            sw.destroyed.connect(lambda :print("TEST"))
             self.splitwin.append(ws)
         else:
             while self.splitwin:
